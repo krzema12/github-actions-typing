@@ -7,6 +7,8 @@ import io.kotest.matchers.should
 import io.kotest.matchers.shouldNot
 import io.kotest.mpp.sysprop
 import it.krzeminski.snakeyaml.engine.kmp.api.Load
+import it.krzeminski.snakeyaml.engine.kmp.api.LoadSettings
+import it.krzeminski.snakeyaml.engine.kmp.schema.CoreSchema
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
@@ -46,7 +48,12 @@ private fun beValid(): Matcher<File> {
         var errorMessage: String? = null
         MatcherResult(
             runCatching {
-                schema.validate(dataFile.inputStream().use { Load().loadOne(it) }.toJsonElement()) {
+                schema.validate(dataFile.inputStream().use {
+                    Load(
+                        // work-around for https://github.com/krzema12/snakeyaml-engine-kmp/pull/390
+                        LoadSettings.builder().setSchema(CoreSchema()).build()
+                    ).loadOne(it)
+                }.toJsonElement()) {
                     errorMessage = buildString {
                         if (errorMessage != null) {
                             appendLine(errorMessage)
