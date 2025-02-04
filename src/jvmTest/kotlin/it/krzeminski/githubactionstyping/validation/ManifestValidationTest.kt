@@ -17,12 +17,12 @@ class ManifestValidationTest : FunSpec({
                     "integer-input" to ApiItem(type = "integer"),
                     "integer-with-named-values-input" to ApiItem(
                         type = "integer",
-                        namedValues = mapOf("foo" to "1", "bar" to "2")
+                        namedValues = mapOf("foo" to 1, "bar" to 2)
                     ),
                     "integer-with-named-values-and-custom-item-name-input" to ApiItem(
                         type = "integer",
                         name = "SomeItemName",
-                        namedValues = mapOf("foo" to "1", "bar" to "2")
+                        namedValues = mapOf("foo" to 1, "bar" to 2)
                     ),
                     "float-input" to ApiItem(type = "float"),
                 ),
@@ -481,11 +481,11 @@ class ManifestValidationTest : FunSpec({
             // given
             val manifest = TypesManifest(
                 inputs = mapOf(
-                    "string-input" to ApiItem(type = "string", namedValues = mapOf("foo" to "1")),
-                    "boolean-input" to ApiItem(type = "boolean", namedValues = mapOf("foo" to "1")),
-                    "float-input" to ApiItem(type = "float", namedValues = mapOf("foo" to "1")),
-                    "list-input" to ApiItem(type = "list", separator = ",", listItem = ApiItem(type = "string"), namedValues = mapOf("foo" to "1")),
-                    "enum-input" to ApiItem(type = "enum", allowedValues = listOf("foo", "bar"), namedValues = mapOf("foo" to "1")),
+                    "string-input" to ApiItem(type = "string", namedValues = mapOf("foo" to 1)),
+                    "boolean-input" to ApiItem(type = "boolean", namedValues = mapOf("foo" to 1)),
+                    "float-input" to ApiItem(type = "float", namedValues = mapOf("foo" to 1)),
+                    "list-input" to ApiItem(type = "list", separator = ",", listItem = ApiItem(type = "string"), namedValues = mapOf("foo" to 1)),
+                    "enum-input" to ApiItem(type = "enum", allowedValues = listOf("foo", "bar"), namedValues = mapOf("foo" to 1)),
                 ),
             )
 

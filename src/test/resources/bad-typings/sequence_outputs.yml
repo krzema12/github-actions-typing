@@ -1,13 +1,8 @@
 # yaml-language-server: $schema=../../../../github-actions-typing.schema.json
 # See https://github.com/typesafegithub/github-actions-typing
-inputs:
-  retries:
-    type: integer
-    name: AllowedValues
-    named-values:
-      foo: '0'
+outputs: []
 
 # Expected validation error
 #
-#Named values must be integer.
+#outputs must be a mapping.
 #

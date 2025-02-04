@@ -5,6 +5,7 @@ import io.kotest.assertions.withClue
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.beOfType
+import it.krzeminski.githubactionstyping.parsing.ValidationException
 import it.krzeminski.githubactionstyping.parsing.parseTypesManifest
 import it.krzeminski.githubactionstyping.reporting.toPlaintextReport
 import it.krzeminski.githubactionstyping.validation.ItemValidationResult
@@ -16,7 +17,7 @@ import java.io.File
  */
 class LogicConsistencyTest : UseCaseTest() {
     override suspend fun testValid(typing: File) {
-        val validationResult = parseTypesManifest(typing.readText()).validate(typing.toPath().fileName)
+        val validationResult = parseTypesManifest(typing.readText()).getOrThrow().validate(typing.toPath().fileName)
         withClue(validationResult.toPlaintextReport()) {
             validationResult.overallResult shouldBe ItemValidationResult.Valid
         }
@@ -29,14 +30,19 @@ class LogicConsistencyTest : UseCaseTest() {
             .trimMargin("#")
             .trim()
 
-        val validationResult = parseTypesManifest(typesManifest).validate(typing.toPath().fileName)
-        assertSoftly {
-            validationResult.overallResult should beOfType<ItemValidationResult.Invalid>()
-            validationResult
-                .toPlaintextReport()
-                .trim()
-                .replace("\u001B", "\\x1B")
-                .shouldBe(expectedValidationError)
+        val parsedTypesManifest = parseTypesManifest(typesManifest)
+        if (parsedTypesManifest.isFailure && parsedTypesManifest.exceptionOrNull() is ValidationException) {
+            parsedTypesManifest.exceptionOrNull()!!.message shouldBe expectedValidationError
+        } else {
+            val validationResult = parsedTypesManifest.getOrThrow().validate(typing.toPath().fileName)
+            assertSoftly {
+                validationResult.overallResult should beOfType<ItemValidationResult.Invalid>()
+                validationResult
+                    .toPlaintextReport()
+                    .trim()
+                    .replace("\u001B", "\\x1B")
+                    .shouldBe(expectedValidationError)
+            }
         }
     }
 }

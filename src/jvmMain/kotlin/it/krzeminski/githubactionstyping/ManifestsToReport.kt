@@ -1,6 +1,6 @@
 package it.krzeminski.githubactionstyping
 
-import it.krzeminski.githubactionstyping.parsing.TypesManifest
+import it.krzeminski.githubactionstyping.parsing.ValidationException
 import it.krzeminski.githubactionstyping.parsing.parseManifest
 import it.krzeminski.githubactionstyping.parsing.parseTypesManifest
 import it.krzeminski.githubactionstyping.reporting.appendStatus
@@ -25,11 +25,14 @@ fun manifestsToReport(manifestAndPath: Pair<String, Path>?, typesManifest: Strin
         })
     }
 
-    val parsedTypesManifest = if (typesManifest.isNotBlank()) {
+    val parsedTypesManifest =
         parseTypesManifest(typesManifest)
-    } else {
-        TypesManifest()
-    }
+            .onFailure {
+                if (it is ValidationException) {
+                    return false to it.message
+                }
+                throw it
+            }.getOrThrow()
     val parsedManifest = parseManifest(manifestAndPath.first)
 
     val inputsInTypesManifest = parsedTypesManifest.inputs?.keys ?: emptySet()

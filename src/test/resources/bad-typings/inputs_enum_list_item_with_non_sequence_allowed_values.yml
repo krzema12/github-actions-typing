@@ -1,16 +1,14 @@
 # yaml-language-server: $schema=../../../../github-actions-typing.schema.json
 # See https://github.com/typesafegithub/github-actions-typing
 inputs:
-  list-of-integer:
+  granted-scopes:
     type: list
     separator: ','
     list-item:
-      type: integer
-      name: AllowedValues
-      named-values:
-        foo: '0'
+      type: enum
+      allowed-values: foo
 
 # Expected validation error
 #
-#Named values must be integer.
+#allowed-values must be a sequence.
 #

@@ -3,11 +3,11 @@
 inputs:
   retries:
     type: integer
-    name: AllowedValues
+    name: 0o0
     named-values:
-      foo: '0'
+      foo: 0
 
 # Expected validation error
 #
-#Named values must be integer.
+#name must be a string.
 #

@@ -1,16 +1,12 @@
 # yaml-language-server: $schema=../../../../github-actions-typing.schema.json
 # See https://github.com/typesafegithub/github-actions-typing
 outputs:
-  list-of-integer:
-    type: list
-    separator: ','
-    list-item:
-      type: integer
-      name: AllowedValues
-      named-values:
-        foo: '0'
+  foo:
+    type: string
+    bar:
+    baz:
 
 # Expected validation error
 #
-#Named values must be integer.
+#Excess keys: bar, baz.
 #
