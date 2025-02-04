@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=../../../../github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+inputs:
+  input-files:
+    type: list
+    separator:
+    list-item:
+      type: string
+
+# Expected validation error
+#
+#For action with manifest at 'inputs_list_with_null_separator.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#• input-files:
+#  \x1B[31m❌ INVALID: Separator must be specified.\x1B[0m
+#
+#Outputs:
+#None.
+#

@@ -6,11 +6,11 @@ inputs:
     separator: ','
     list-item:
       type: integer
-      name: AllowedValues
+      name: 0x0
       named-values:
-        foo: '0'
+        foo: 0
 
 # Expected validation error
 #
-#Named values must be integer.
+#name must be a string.
 #

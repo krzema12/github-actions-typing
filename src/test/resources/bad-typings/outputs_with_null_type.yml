@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=../../../../github-actions-typing.schema.json
+# See https://github.com/typesafegithub/github-actions-typing
+outputs:
+  permissions:
+    type:
+
+# Expected validation error
+#
+#For action with manifest at 'outputs_with_null_type.yml':
+#Result:
+#\x1B[31m❌ INVALID: Some typing is invalid.\x1B[0m
+#
+#Inputs:
+#None.
+#
+#Outputs:
+#• permissions:
+#  \x1B[31m❌ INVALID: Type must be specified. Use 'type' attribute.\x1B[0m
+#

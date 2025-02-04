@@ -7,10 +7,9 @@ inputs:
     list-item:
       type: integer
       name: AllowedValues
-      named-values:
-        foo: '0'
+      named-values: []
 
 # Expected validation error
 #
-#Named values must be integer.
+#named-values must be a mapping.
 #
